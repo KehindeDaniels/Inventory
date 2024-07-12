@@ -1,124 +1,152 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom"; // Make sure to import Link
 import logo from "/assets/logo.png";
+
 import {
   faBox,
   faShoppingCart,
   faUsers,
   faCalendarAlt,
   faChevronDown,
+  faChevronUp,
   faBell,
   faCog,
   faBars,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const toggleDropdown = (link) => {
+    if (openDropdown === link) {
+      setOpenDropdown(null);
+    } else {
+      setOpenDropdown(link);
+    }
+  };
 
   const navLinks = [
     {
       navName: "Sample log",
       navIcon: faBox,
-      link: "sampleLog",
+      link: "/sampleLog",
     },
     {
       navName: "Clients",
       navIcon: faUsers,
-      link: "client",
+      link: "/client",
     },
     {
       navName: "Inventory",
       navIcon: faShoppingCart,
-      link: "/",
+      link: "/inventory",
       nestedLink: [
-        { name: "overview", link: "" },
-        { name: "items", link: "items" },
-        { name: "consumables", link: "consumables" },
-        { name: "files", link: "files" },
+        { name: "Overview", link: "/inventory/overview" },
+        { name: "Items", link: "/inventory/items" },
+        { name: "Consumables", link: "/inventory/consumables" },
+        { name: "Files", link: "/inventory/files" },
       ],
     },
     {
       navName: "Calendar",
       navIcon: faCalendarAlt,
-      link: "calender",
+      link: "/calendar",
     },
+    // Support section starts here
     {
       navName: "Notifications",
       navIcon: faBell,
-      link: "notification",
+      link: "/notification",
+      section: "Support",
     },
     {
       navName: "Settings",
       navIcon: faCog,
-      link: "settings",
+      link: "/settings",
+      section: "Support",
     },
   ];
 
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMobile(!isMobile);
-  };
-
   return (
-    <div
-      className={`flex flex-col h-full bg-blue-700 text-white transition-width duration-300 ${
-        isCollapsed ? "w-20" : "w-64"
-      } ${isMobile ? "fixed w-full" : "relative"}`}
-    >
-      <div className="flex items-center p-4">
-        <img src={logo} alt="EnvAccord Logo" className="w-8 h-8" />
-        {!isCollapsed && (
-          <span className="ml-4 text-lg font-bold">EnvAccord</span>
-        )}
-        <button className="ml-auto text-xl" onClick={toggleMobileMenu}>
-          <FontAwesomeIcon icon={isMobile ? faTimes : faBars} />
-        </button>
-      </div>
-      <nav className="flex-1">
-        {navLinks.map((nav, index) => (
-          <div key={index} className="p-4">
-            <a href={`/${nav.link}`} className="flex items-center">
-              <FontAwesomeIcon icon={nav.navIcon} className="text-xl" />
-              {!isCollapsed && <span className="ml-4">{nav.navName}</span>}
-            </a>
-            {nav.nestedLink && !isCollapsed && (
-              <div className="ml-8">
-                {nav.nestedLink.map((nested, nestedIndex) => (
-                  <a
-                    key={nestedIndex}
-                    href={`/${nav.link}/${nested.link}`}
-                    className="block mt-2"
-                  >
-                    {nested.name}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </nav>
-      <div className="p-4">
-        <a href="/notification" className="flex items-center">
-          <FontAwesomeIcon icon={faBell} className="text-xl" />
-          {!isCollapsed && <span className="ml-4">Notifications</span>}
-        </a>
-        <a href="/settings" className="flex items-center mt-4">
-          <FontAwesomeIcon icon={faCog} className="text-xl" />
-          {!isCollapsed && <span className="ml-4">Settings</span>}
-        </a>
-      </div>
-      <div className="p-4">
-        <div className="text-center">
-          <span className="block font-bold">Oluwaseun Ojiri</span>
-          <span className="text-sm text-gray-400">Seun@envacord.com</span>
+    <>
+      <div
+        className={`bg-blue-800 text-white w-64 md:w-16 ${
+          isSidebarOpen ? "md:w-64" : "md:w-16"
+        } space-y-6 py-7 px-2 absolute inset-y-0 left-0 ${
+          isSidebarOpen ? "transform-none" : "-translate-x-64 md:translate-x-0"
+        } transition-all duration-300 ease-in-out`}
+      >
+        <div className="flex gap-2 items-center px-2 mt-10 justify-center md:justify-start">
+          <img src={logo} alt="EnvAccord Logo" className="w-10 h-10" />
+          {isSidebarOpen && (
+            <h1 className="text-3xl font-bold hidden md:block">EnvAccord</h1>
+          )}
         </div>
+        <ul className={`flex pl-2 flex-col items-center  justify-center gap-4`}>
+          {navLinks.map((link, index) => (
+            <React.Fragment key={link.navName}>
+              {link.section === "Support" &&
+                index === 4 && ( // Only render once before the first "Support" section item
+                  <div className="mt-8 mb-2 w-full text-white text-xs uppercase font-bold pl-4">
+                    {isSidebarOpen && "Support"}
+                  </div>
+                )}
+              <li
+                className={`py-2 px-2 w-full flex justify-start ${
+                  isSidebarOpen ? "md:justify-start" : "md:justify-center"
+                } items-center cursor-pointer hover:bg-blue-700 hover:rounded-md hover:bg-opacity-50`}
+                onClick={() =>
+                  link.nestedLink ? toggleDropdown(link.navName) : null
+                }
+              >
+                <FontAwesomeIcon icon={link.navIcon} className="mr-2" />
+                {isSidebarOpen && (
+                  <Link
+                    to={link.link}
+                    className="text-white hover:text-opacity-80"
+                  >
+                    <span>{link.navName}</span>
+                  </Link>
+                )}
+                {link.nestedLink && isSidebarOpen && (
+                  <FontAwesomeIcon
+                    icon={
+                      openDropdown === link.navName
+                        ? faChevronUp
+                        : faChevronDown
+                    }
+                    className="ml-2"
+                  />
+                )}
+              </li>
+              {link.nestedLink && openDropdown === link.navName && (
+                <ul className="pl-8 text-sm">
+                  {link.nestedLink.map((sub) => (
+                    <li key={sub.name} className="py-1">
+                      <Link to={sub.link}>{sub.name}</Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </React.Fragment>
+          ))}
+        </ul>
       </div>
-    </div>
+      <button
+        onClick={toggleSidebar}
+        className={`absolute text-xl ${
+          isSidebarOpen ? "text-white" : "text-blue-gray"
+        } md:text-white top-4 left-6`}
+      >
+        {isSidebarOpen ? (
+          <FontAwesomeIcon icon={faTimes} />
+        ) : (
+          <FontAwesomeIcon icon={faBars} />
+        )}
+      </button>
+    </>
   );
 };
 
