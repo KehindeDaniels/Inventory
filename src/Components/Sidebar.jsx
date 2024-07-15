@@ -72,7 +72,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   return (
     <>
       <div
-        className={`bg-blue-800 text-white w-64 md:w-16 ${
+        className={`bg-[#045CF4] text-white w-64 md:w-16 ${
           isSidebarOpen ? "md:w-64" : "md:w-16"
         } space-y-6 py-7 px-2 absolute inset-y-0 left-0 ${
           isSidebarOpen ? "transform-none" : "-translate-x-64 md:translate-x-0"

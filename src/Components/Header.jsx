@@ -7,7 +7,7 @@ const Header = () => {
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
 
   return (
-    <div className="header bg-gray-50 flex justify-between items-center px-16 py-4">
+    <div className="header bg-gray-100 flex justify-between items-center px-16 py-4">
       <div
         className={`search-bar ${isSearchOpen ? "block" : "hidden"} md:block`}
       >
