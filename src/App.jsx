@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./Pages/Layout";
 import Inventory from "./Pages/inventory/Inventory";
 import SampleLog from "./Pages/SampleLog";
@@ -15,18 +15,14 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* Default route now directly to Inventory, not as an index */}
+        <Route element={<Layout />}>
+          <Route index element={<Navigate to="/inventory" />} />
           <Route path="inventory" element={<Inventory />}>
-            <Route index element={<Overview />} /> // Overview as index under
-            /inventory
-            <Route path="overview" element={<Overview />} />
+            <Route index element={<Overview />} />
             <Route path="items" element={<Items />} />
             <Route path="consumables" element={<Consumables />} />
             <Route path="files" element={<Files />} />
           </Route>
-          <Route index element={<Inventory />} /> // Make / path redirect to
-          Inventory
           <Route path="sampleLog" element={<SampleLog />} />
           <Route path="client" element={<Client />} />
           <Route path="calendar" element={<Calendar />} />

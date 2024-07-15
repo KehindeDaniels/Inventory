@@ -3,8 +3,7 @@ import Sidebar from "../Components/Sidebar";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar starts closed on mobile
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (

@@ -1,11 +1,10 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Overview from "./Overview";
-
+import Header from "../../Components/Header";
 const Inventory = () => {
   return (
-    <div className="flex-1 p-10 text-lg">
-      {/* Inventory content */}
+    <div className="flex-1text-lg">
+      <Header />
       <Outlet />
     </div>
   );

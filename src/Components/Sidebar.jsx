@@ -43,7 +43,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       navIcon: faShoppingCart,
       link: "/inventory",
       nestedLink: [
-        { name: "Overview", link: "/inventory/overview" },
+        { name: "Overview", link: "/inventory" },
         { name: "Items", link: "/inventory/items" },
         { name: "Consumables", link: "/inventory/consumables" },
         { name: "Files", link: "/inventory/files" },
@@ -54,7 +54,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       navIcon: faCalendarAlt,
       link: "/calendar",
     },
-    // Support section starts here
+    // support
     {
       navName: "Notifications",
       navIcon: faBell,
@@ -87,12 +87,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         <ul className={`flex pl-2 flex-col items-center  justify-center gap-4`}>
           {navLinks.map((link, index) => (
             <React.Fragment key={link.navName}>
-              {link.section === "Support" &&
-                index === 4 && ( // Only render once before the first "Support" section item
-                  <div className="mt-8 mb-2 w-full text-white text-xs uppercase font-bold pl-4">
-                    {isSidebarOpen && "Support"}
-                  </div>
-                )}
+              {link.section === "Support" && index === 4 && (
+                <div className="mt-8 mb-2 w-full text-white text-xs uppercase font-bold pl-4">
+                  {isSidebarOpen && "Support"}
+                </div>
+              )}
               <li
                 className={`py-2 px-2 w-full flex justify-start ${
                   isSidebarOpen ? "md:justify-start" : "md:justify-center"
