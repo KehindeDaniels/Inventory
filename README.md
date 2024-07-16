@@ -1,6 +1,4 @@
-#                    
-                      
-   EnvAccord Dashboard                                        
+## EnvAccord Dashboard                                        
   [Live link:](https://inventory-alpha-dusky.vercel.app/)
   
 ## Overview
