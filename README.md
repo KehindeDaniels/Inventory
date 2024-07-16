@@ -1,7 +1,7 @@
 #                    
                       
    EnvAccord Dashboard                                        
-  [Live link:](https://inventory-alpha-dusky.vercel.app/inventory)
+  [Live link:](https://inventory-alpha-dusky.vercel.app/)
   
 ## Overview
 EnvAccord dashboard is a tracking and management system for inventories                    
