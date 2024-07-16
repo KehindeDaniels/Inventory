@@ -5,8 +5,8 @@ import {
   getCoreRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { columnDeff } from "../columnDef/ExpiryColumns";
-import mockData from "../json/chemicals.json";
+import { columnDeff } from "../columnDef/ExpiryColumns"; // Adjust the path as needed
+import mockData from "../json/chemicals.json"; // Adjust the path as needed
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPrint,
@@ -42,17 +42,19 @@ const BasicTable = () => {
   });
 
   return (
-    <div className="p-4 bg-white shadow-md rounded-lg">
-      <div className="flex justify-between items-center bg-blue-100 p-4 rounded-t-lg mb-4">
-        <div className="flex items-center text-blue-900">
+    <div className="p-4 bg-white shadow-md rounded-lg overflow-x-auto">
+      <div className="flex flex-col md:flex-row justify-between items-center bg-blue-100 p-4 rounded-t-lg mb-4">
+        <div className="flex items-center text-blue-900 mb-4 md:mb-0">
           <FontAwesomeIcon icon={faCartPlus} size="2x" />
-          <h3 className="ml-3 text-2xl font-bold">Expiring Inventory</h3>
+          <h3 className="ml-3 text-xl md:text-2xl font-bold">
+            Expiring Inventory
+          </h3>
         </div>
-        <div className="flex space-x-4">
+        <div className="flex flex-wrap gap-2">
           <input
             type="text"
             placeholder="Search by name..."
-            className="px-4 py-2 border rounded"
+            className="flex-grow md:flex-grow-0 px-4 py-2 border rounded"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -77,7 +79,7 @@ const BasicTable = () => {
               {headerGroup.headers.map((headerColumn) => (
                 <th
                   key={headerColumn.id}
-                  className="relative px-6 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider cursor-pointer"
+                  className="px-6 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider cursor-pointer"
                   onClick={() => setDropdownOpen(headerColumn.id)}
                 >
                   {flexRender(
