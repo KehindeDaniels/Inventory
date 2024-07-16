@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom"; // Make sure to import Link
+import { Link } from "react-router-dom";
 import logo from "/assets/logo.png";
 
 import {
@@ -86,7 +86,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         </div>
         <ul className={`flex pl-2 flex-col items-center  justify-center gap-4`}>
           {navLinks.map((link, index) => (
-            <React.Fragment key={link.navName}>
+            <div key={link.navName}>
               {link.section === "Support" && index === 4 && (
                 <div className="mt-8 mb-2 w-full text-white text-xs uppercase font-bold pl-4">
                   {isSidebarOpen && "Support"}
@@ -129,7 +129,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                   ))}
                 </ul>
               )}
-            </React.Fragment>
+            </div>
           ))}
         </ul>
       </div>

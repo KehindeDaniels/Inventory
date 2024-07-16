@@ -15,7 +15,7 @@ const OverviewCard = () => {
       trend: "+3.2%",
       description: "Items ready for use",
       icon: faWarehouse,
-      bgColor: "bg-blue-800", // Special color for the first card
+      bgColor: "bg-blue-800",
     },
     {
       title: "Low Stock",

@@ -5,8 +5,8 @@ import {
   getCoreRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { stockColumns } from "../columnDef/StockColumns "; // Adjust the path as needed
-import mockStockData from "../json/count.json"; // Ensure your stock data is correct
+import { stockColumns } from "../columnDef/StockColumns ";
+import mockStockData from "../json/count.json";
 
 const StockTable = () => {
   const columns = useMemo(() => stockColumns, []);
@@ -16,7 +16,6 @@ const StockTable = () => {
     { id: columns[1].accessorKey, desc: true },
   ]);
 
-  // Search filter implementation
   useEffect(() => {
     if (searchText === "") {
       setData(mockStockData);

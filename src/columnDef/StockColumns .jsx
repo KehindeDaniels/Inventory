@@ -20,7 +20,7 @@ export const stockColumns = [
     cell: (info) => info.getValue(),
   },
   {
-    accessorKey: "quantity", // Utilize quantity to determine the status based on reorder point
+    accessorKey: "quantity",
     header: "Status",
     cell: (info) => {
       const quantity = info.getValue();
