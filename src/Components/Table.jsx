@@ -5,8 +5,8 @@ import {
   getCoreRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { columnDeff } from "../columnDef/ExpiryColumns"; // Adjust the path as needed
-import mockData from "../json/chemicals.json"; // Adjust the path as needed
+import { columnDeff } from "../columnDef/ExpiryColumns";
+import mockData from "../json/chemicals.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPrint,
@@ -20,7 +20,6 @@ const BasicTable = () => {
   const [sorting, setSorting] = useState([
     { id: columns[1].accessorKey, desc: true },
   ]);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -42,7 +41,7 @@ const BasicTable = () => {
   });
 
   return (
-    <div className="p-4 bg-white shadow-md rounded-lg overflow-x-auto">
+    <div className="p-4 bg-white shadow-md rounded-lg overflow-hidden">
       <div className="flex flex-col md:flex-row justify-between items-center bg-blue-100 p-4 rounded-t-lg mb-4">
         <div className="flex items-center text-blue-900 mb-4 md:mb-0">
           <FontAwesomeIcon icon={faCartPlus} size="2x" />
@@ -71,46 +70,51 @@ const BasicTable = () => {
           </button>
         </div>
       </div>
-
-      <table className="min-w-full divide-y divide-gray-300">
-        <thead className="bg-gray-100">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((headerColumn) => (
-                <th
-                  key={headerColumn.id}
-                  className="px-6 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider cursor-pointer"
-                  onClick={() => setDropdownOpen(headerColumn.id)}
-                >
-                  {flexRender(
-                    headerColumn.column.columnDef.header,
-                    headerColumn.getContext()
-                  )}
-                  {headerColumn.column.getIsSorted() === "asc"
-                    ? " 👆"
-                    : headerColumn.column.getIsSorted() === "desc"
-                    ? " 👇"
-                    : ""}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody className="divide-y divide-gray-300">
-          {table.getRowModel().rows.map((row, rowIndex) => (
-            <tr key={rowIndex} className="hover:bg-gray-100">
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  key={`${row.id}_${cell.column.id}`}
-                  className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-300">
+          <thead className="bg-gray-100">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    className="px-6 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider cursor-pointer"
+                    onClick={() =>
+                      setSorting([
+                        { id: header.id, desc: !header.isSortedDesc },
+                      ])
+                    }
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {header.isSorted
+                      ? header.isSortedDesc
+                        ? " 👇"
+                        : " 👆"
+                      : null}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody className="divide-y divide-gray-300">
+            {table.getRowModel().rows.map((row, rowIndex) => (
+              <tr key={rowIndex} className="hover:bg-gray-100">
+                {row.getVisibleCells().map((cell) => (
+                  <td
+                    key={cell.id}
+                    className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
