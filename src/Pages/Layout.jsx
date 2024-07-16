@@ -7,7 +7,7 @@ const Layout = () => {
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-100">
+    <div className="flex h-screen overflow-auto bg-gray-100">
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div
         className={`flex-1 flex flex-col ${

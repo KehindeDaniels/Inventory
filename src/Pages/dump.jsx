@@ -1,114 +1,197 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "/assets/logo.png";
-
-import {
-  faBox,
-  faShoppingCart,
-  faUsers,
-  faCalendarAlt,
-  faChevronDown,
-  faBell,
-  faCog,
-  faBars,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons";
-
-const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
-  const navLinks = [
-    {
-      navName: "Sample log",
-      navIcon: faBox,
-      link: "sampleLog",
-    },
-    {
-      navName: "Clients",
-      navIcon: faUsers,
-      link: "client",
-    },
-    {
-      navName: "Inventory",
-      navIcon: faShoppingCart,
-      link: "/",
-      nestedLink: [
-        { name: "overview", link: "" },
-        { name: "items", link: "items" },
-        { name: "consumables", link: "consumables" },
-        { name: "files", link: "files" },
-      ],
-    },
-    {
-      navName: "Calendar",
-      navIcon: faCalendarAlt,
-      link: "calender",
-    },
-    {
-      navName: "Notifications",
-      navIcon: faBell,
-      link: "notification",
-    },
-    {
-      navName: "Settings",
-      navIcon: faCog,
-      link: "settings",
-    },
-  ];
-
-  const navElem = navLinks.map((nav, index) => (
-    <div key={index} className="p-4">
-      <a href={`/${nav.link}`} className="flex items-center">
-        <FontAwesomeIcon icon={nav.navIcon} className="text-xl" />
-        {isSidebarOpen && <span className="ml-4">{nav.navName}</span>}
-      </a>
-      {nav.nestedLink && isSidebarOpen && (
-        <div className="ml-8">
-          {nav.nestedLink.map((nested, nestedIndex) => (
-            <a
-              key={nestedIndex}
-              href={`/${nav.link}/${nested.link}`}
-              className="block mt-2"
-            >
-              {nested.name}
-            </a>
-          ))}
-        </div>
-      )}
-    </div>
-  ));
-
-  return (
-    <>
-      <div
-        className={`bg-blue-800 text-white w-64 md:w-16 ${
-          isSidebarOpen ? "md:w-64" : "md:w-16"
-        } space-y-6 py-7 px-2 absolute inset-y-0 left-0 ${
-          isSidebarOpen ? "transform-none" : "-translate-x-64 md:translate-x-0"
-        } transition-width duration-300 ease-in-out`}
-      >
-        <div className="flex gap-2 items-center px-2 mt-10 justify-center md:justify-start">
-          <div className="">
-            <img src={logo} alt="logo" />
-          </div>
-          {isSidebarOpen && (
-            <h1 className="text-3xl font-bold hidden md:block">EnvAccord</h1>
-          )}
-        </div>
-        <ul>{navElem}</ul>
-      </div>
-      <button
-        onClick={toggleSidebar}
-        className={`absolute text-xl ${
-          isSidebarOpen ? "text-white" : "text-gray-700"
-        }  md:text-white  top-4 left-4`}
-      >
-        {isSidebarOpen ? (
-          <FontAwesomeIcon icon={faTimes} />
-        ) : (
-          <FontAwesomeIcon icon={faBars} />
-        )}
-      </button>
-    </>
-  );
-};
-
-export default Sidebar;
+[
+  {
+    id: 0,
+    name: "Methanol",
+    category: "Chemicals and Reagents",
+    quantity: 563,
+    unit: "ml",
+    reorder_level: 843,
+    supplier: "BioChem",
+    cost_per_unit: 0.15,
+    location: "Lab",
+    date_of_purchase: "2023-04-13",
+    expiry_date: "2024-07-15",
+    batch_number: "BATCH1234",
+    condition: "New",
+  },
+  {
+    id: 1,
+    name: "Hydrochloric Acid",
+    category: "Chemicals and Reagents",
+    quantity: 190,
+    unit: "ml",
+    reorder_level: 321,
+    supplier: "ChemCorp",
+    cost_per_unit: 0.11,
+    location: "Lab",
+    date_of_purchase: "2022-11-22",
+    expiry_date: "2024-07-16",
+    batch_number: "BATCH2345",
+    condition: "New",
+  },
+  {
+    id: 2,
+    name: "Acetone",
+    category: "Chemicals and Reagents",
+    quantity: 678,
+    unit: "ml",
+    reorder_level: 731,
+    supplier: "Lab Solutions",
+    cost_per_unit: 0.21,
+    location: "Lab",
+    date_of_purchase: "2024-02-10",
+    expiry_date: "2024-07-17",
+    batch_number: "BATCH3456",
+    condition: "New",
+  },
+  {
+    id: 3,
+    name: "Sodium Hydroxide",
+    category: "Chemicals and Reagents",
+    quantity: 20,
+    unit: "g",
+    reorder_level: 654,
+    supplier: "ChemCorp",
+    cost_per_unit: 0.05,
+    location: "Lab",
+    date_of_purchase: "2023-08-18",
+    expiry_date: "2024-07-15",
+    batch_number: "BATCH4567",
+    condition: "New",
+  },
+  {
+    id: 4,
+    name: "Ethanol",
+    category: "Chemicals and Reagents",
+    quantity: 3001,
+    unit: "ml",
+    reorder_level: 294,
+    supplier: "BioChem",
+    cost_per_unit: 0.17,
+    location: "Lab",
+    date_of_purchase: "2024-05-14",
+    expiry_date: "2024-07-19",
+    batch_number: "BATCH5678",
+    condition: "New",
+  },
+  {
+    id: 5,
+    name: "Sulfuric Acid",
+    category: "Chemicals and Reagents",
+    quantity: 400,
+    unit: "ml",
+    reorder_level: 350,
+    supplier: "Lab Solutions",
+    cost_per_unit: 0.22,
+    location: "Lab",
+    date_of_purchase: "2023-01-20",
+    expiry_date: "2024-03-30",
+    batch_number: "BATCH6789",
+    condition: "New",
+  },
+  {
+    id: 6,
+    name: "Potassium Chloride",
+    category: "Chemicals and Reagents",
+    quantity: 290,
+    unit: "ml",
+    reorder_level: 420,
+    supplier: "ChemCorp",
+    cost_per_unit: 0.14,
+    location: "Lab",
+    date_of_purchase: "2022-06-15",
+    expiry_date: "2024-07-15",
+    batch_number: "BATCH7890",
+    condition: "New",
+  },
+  {
+    id: 7,
+    name: "Ammonium Hydroxide",
+    category: "Chemicals and Reagents",
+    quantity: 150,
+    unit: "ml",
+    reorder_level: 390,
+    supplier: "Lab Solutions",
+    cost_per_unit: 0.09,
+    location: "Lab",
+    date_of_purchase: "2024-10-03",
+    expiry_date: "2024-07-15",
+    batch_number: "BATCH8901",
+    condition: "New",
+  },
+  {
+    id: 8,
+    name: "Sodium Chloride",
+    category: "Chemicals and Reagents",
+    quantity: 470,
+    unit: "ml",
+    reorder_level: 870,
+    supplier: "ChemCorp",
+    cost_per_unit: 0.04,
+    location: "Lab",
+    date_of_purchase: "2023-07-22",
+    expiry_date: "2024-07-15",
+    batch_number: "BATCH9012",
+    condition: "New",
+  },
+  {
+    id: 9,
+    name: "Magnesium Sulfate",
+    category: "Chemicals and Reagents",
+    quantity: 2150,
+    unit: "ml",
+    reorder_level: 560,
+    supplier: "Lab Solutions",
+    cost_per_unit: 0.08,
+    location: "Lab",
+    date_of_purchase: "2023-02-25",
+    expiry_date: "2024-07-15",
+    batch_number: "BATCH0123",
+    condition: "New",
+  },
+  {
+    id: 10,
+    name: "Glucose",
+    category: "Chemicals and Reagents",
+    quantity: 4500,
+    unit: "ml",
+    reorder_level: 890,
+    supplier: "BioChem",
+    cost_per_unit: 0.19,
+    location: "Lab",
+    date_of_purchase: "2024-04-05",
+    expiry_date: "2024-07-15",
+    batch_number: "BATCH1234",
+    condition: "New",
+  },
+  {
+    id: 11,
+    name: "Benzene",
+    category: "Chemicals and Reagents",
+    quantity: 990,
+    unit: "ml",
+    reorder_level: 550,
+    supplier: "ChemCorp",
+    cost_per_unit: 0.27,
+    location: "Lab",
+    date_of_purchase: "2023-06-12",
+    expiry_date: "2024-05-22",
+    batch_number: "BATCH2345",
+    condition: "New",
+  },
+  {
+    id: 12,
+    name: "Methanol",
+    category: "Chemicals and Reagents",
+    quantity: 2760,
+    unit: "ml",
+    reorder_level: 670,
+    supplier: "Lab Solutions",
+    cost_per_unit: 0.13,
+    location: "Lab",
+    date_of_purchase: "2022-10-28",
+    expiry_date: "2024-07-18",
+    batch_number: "BATCH23245",
+    condition: "New",
+  },
+];
